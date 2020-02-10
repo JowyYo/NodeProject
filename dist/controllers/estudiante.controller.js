@@ -41,11 +41,6 @@ class EstudianteController {
             this.estudianteRepo.eliminarCurso(req.params.estudianteId, req.body.nombre)
                 .then(response => res.send(response));
         };
-        this.router.get(this.path, this.getAll);
-        this.router.get(this.path + '/:name', this.getByName);
-        this.router.post(this.path, this.create);
-        this.router.put(this.path + '/anadirCurso/:estudianteId', this.añadirCurso);
-        this.router.put(this.path + '/deleteCurso/:estudianteId', this.eliminarCurso);
         this.estudianteRepo = new estudiante_repository_1.EstudianteRepository();
     }
 }

@@ -7,12 +7,6 @@ export class EstudianteController {
     private estudianteRepo: EstudianteRepository
 
     constructor() {
-        this.router.get(this.path, this.getAll)
-        this.router.get(this.path + '/:name', this.getByName)
-        this.router.post(this.path, this.create)
-        this.router.put(this.path + '/anadirCurso/:estudianteId', this.añadirCurso)
-        this.router.put(this.path + '/deleteCurso/:estudianteId', this.eliminarCurso)
-
         this.estudianteRepo = new EstudianteRepository();
     }
 

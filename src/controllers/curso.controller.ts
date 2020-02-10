@@ -1,14 +1,10 @@
-import * as express from 'express'
 import { CursoRepository } from '../repositories/curso.repository'
 
 export class CursoController {
-    public router = express.Router()
-    private path = '/cursos'
-    private cursoRepo = new CursoRepository()
+    private cursoRepo
 
     constructor() {
-        this.router.get(this.path, this.getAll)
-        this.router.post(this.path, this.crearCurso)
+        this.cursoRepo = new CursoRepository()
     }
 
     getAll = (req, res) => {

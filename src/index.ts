@@ -3,11 +3,7 @@ import * as bodyParser  from 'body-parser'
 import { createConnection } from 'typeorm'
 import { Estudiante } from './models/estudiante.model'
 import { Curso } from './models/curso.model'
-import { EstudianteController } from './controllers/estudiante.controller'
-import { CursoController } from './controllers/curso.controller'
-
-const estudianteController = new EstudianteController();
-const cursoController = new CursoController();
+import { apiRouter } from './api.router'
 
 createConnection({
     type: 'mysql',
@@ -26,8 +22,6 @@ const app = express()
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
-// app.use(auth.validate)
-app.use('/', estudianteController.router)
-app.use('/', cursoController.router)
+app.use('/', apiRouter.getRouter())
 
 app.listen(8080, () => console.log('Ready on port 8080'))

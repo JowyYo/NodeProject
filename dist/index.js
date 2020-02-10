@@ -24,10 +24,7 @@ const bodyParser = __importStar(require("body-parser"));
 const typeorm_1 = require("typeorm");
 const estudiante_model_1 = require("./models/estudiante.model");
 const curso_model_1 = require("./models/curso.model");
-const estudiante_controller_1 = require("./controllers/estudiante.controller");
-const curso_controller_1 = require("./controllers/curso.controller");
-const estudianteController = new estudiante_controller_1.EstudianteController();
-const cursoController = new curso_controller_1.CursoController();
+const api_router_1 = require("./api.router");
 typeorm_1.createConnection({
     type: 'mysql',
     host: '127.0.0.1',
@@ -43,8 +40,6 @@ typeorm_1.createConnection({
 const app = express_1.default();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-// app.use(auth.validate)
-app.use('/', estudianteController.router);
-app.use('/', cursoController.router);
+app.use('/', api_router_1.apiRouter.getRouter());
 app.listen(8080, () => console.log('Ready on port 8080'));
 //# sourceMappingURL=index.js.map
