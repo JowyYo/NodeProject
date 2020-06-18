@@ -9,7 +9,10 @@ class CursoController {
         };
         this.crearCurso = (req, res) => {
             this.cursoRepo.create(req.body)
-                .then(response => res.send(response));
+                .then(response => res.send(response))
+                .catch(() => {
+                res.status(400).send('El curso ya existe');
+            });
         };
         this.cursoRepo = new curso_repository_1.CursoRepository();
     }

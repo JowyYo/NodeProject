@@ -24,11 +24,12 @@ export class EstudianteRepository {
             .save(estudiante)
     }
 
-    async añadirCurso(estudianteID: string, nombreCurso: string): Promise<Estudiante> {
+    async añadirCursos(estudianteID: string, nombreCursos: string[]): Promise<Estudiante> {
         const cursoRepo = await getManager().getRepository(Curso)
-        const curso = await cursoRepo.findOne({
-            where: { nombre: nombreCurso }
-        })
+        const cursos = await cursoRepo
+            .createQueryBuilder("curso")
+            .where("curso.nombre IN (:cursos)", { cursos: nombreCursos })
+            .getMany();
 
         const estudianteRepo = await getManager().getRepository(Estudiante)
         const estudiante = await estudianteRepo.findOne({
@@ -36,10 +37,7 @@ export class EstudianteRepository {
             where: { id: estudianteID }
         })
 
-        if (estudiante.cursos.some(c => c.id === curso.id))
-            throw new Error('bad request')
-
-        estudiante.cursos.push(curso)
+        estudiante.cursos.push(...cursos)
 
         return await estudianteRepo.save(estudiante)
     }

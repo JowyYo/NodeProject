@@ -23,7 +23,8 @@ __decorate([
     typeorm_1.ManyToMany(type => estudiante_model_1.Estudiante, estudiante => estudiante.cursos)
 ], Curso.prototype, "estudiantes", void 0);
 Curso = __decorate([
-    typeorm_1.Entity()
+    typeorm_1.Entity(),
+    typeorm_1.Unique(["nombre"])
 ], Curso);
 exports.Curso = Curso;
 //# sourceMappingURL=curso.model.js.map

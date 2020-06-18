@@ -28,7 +28,19 @@ class EstudianteController {
                 .then(response => res.send(response));
         };
         this.añadirCurso = (req, res) => {
+            console.log(req.body);
             this.estudianteRepo.añadirCurso(req.params.estudianteId, req.body.nombre)
+                .then(response => res.send(response))
+                .catch(error => {
+                if (error.message === 'bad request')
+                    res.status(400).send('El estudiante ya esta matriculado en este curso');
+                else
+                    res.sendStatus(500);
+            });
+        };
+        this.añadirCursos = (req, res) => {
+            console.log(req.body.map(curso => curso.nombre));
+            this.estudianteRepo.añadirCursos(req.params.estudianteId, req.body.map(curso => curso.nombre))
                 .then(response => res.send(response))
                 .catch(error => {
                 if (error.message === 'bad request')

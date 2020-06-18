@@ -1,7 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, Unique } from "typeorm";
 import { Estudiante } from "./estudiante.model";
 
 @Entity()
+@Unique(["nombre"])
 export class Curso {
     @PrimaryGeneratedColumn('uuid')
     id: string

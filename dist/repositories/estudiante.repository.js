@@ -35,6 +35,7 @@ class EstudianteRepository {
     }
     añadirCurso(estudianteID, nombreCurso) {
         return __awaiter(this, void 0, void 0, function* () {
+            console.log(estudianteID, nombreCurso);
             const cursoRepo = yield typeorm_1.getManager().getRepository(curso_model_1.Curso);
             const curso = yield cursoRepo.findOne({
                 where: { nombre: nombreCurso }
@@ -47,6 +48,23 @@ class EstudianteRepository {
             if (estudiante.cursos.some(c => c.id === curso.id))
                 throw new Error('bad request');
             estudiante.cursos.push(curso);
+            return yield estudianteRepo.save(estudiante);
+        });
+    }
+    añadirCursos(estudianteID, nombreCursos) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const cursoRepo = yield typeorm_1.getManager().getRepository(curso_model_1.Curso);
+            const cursos = yield cursoRepo
+                .createQueryBuilder("curso")
+                .where("curso.nombre IN (:cursos)", { cursos: nombreCursos })
+                .getMany();
+            console.log(cursos);
+            const estudianteRepo = yield typeorm_1.getManager().getRepository(estudiante_model_1.Estudiante);
+            const estudiante = yield estudianteRepo.findOne({
+                relations: ['cursos'],
+                where: { id: estudianteID }
+            });
+            estudiante.cursos.push(...cursos);
             return yield estudianteRepo.save(estudiante);
         });
     }

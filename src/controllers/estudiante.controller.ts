@@ -27,8 +27,8 @@ export class EstudianteController {
             .then(response => res.send(response))
     }
 
-    añadirCurso = (req, res) => {
-        this.estudianteRepo.añadirCurso(req.params.estudianteId, req.body.nombre)
+    añadirCursos = (req, res) => {
+        this.estudianteRepo.añadirCursos(req.params.estudianteId, req.body.map(curso => curso.nombre))
             .then(response => res.send(response))
             .catch(error => {
                 if (error.message === 'bad request') res.status(400).send('El estudiante ya esta matriculado en este curso')

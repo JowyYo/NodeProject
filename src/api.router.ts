@@ -27,9 +27,10 @@ class ApiRouter {
             .post(this.estudiante.create)
         this.router.route(estudiantePath + '/:name')
             .get(this.estudiante.getByName)
-        this.router.route(estudiantePath + '/curso/:name')
-            .put(this.estudiante.añadirCurso)
+        this.router.route(estudiantePath + '/:estudianteId/curso')
             .delete(this.estudiante.eliminarCurso)
+        this.router.route(estudiantePath + '/:estudianteId/cursos')
+            .post(this.estudiante.añadirCursos)
     }
 
     public getRouter(){

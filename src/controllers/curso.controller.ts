@@ -15,5 +15,8 @@ export class CursoController {
     crearCurso = (req, res) => {
         this.cursoRepo.create(req.body)
             .then(response => res.send(response))
+            .catch(() => {
+                res.status(400).send('El curso ya existe')
+            })
     }
 }
