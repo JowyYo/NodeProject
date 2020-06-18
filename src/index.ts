@@ -4,6 +4,7 @@ import { createConnection } from 'typeorm'
 import { Estudiante } from './models/estudiante.model'
 import { Curso } from './models/curso.model'
 import { apiRouter } from './api.router'
+import { Nota } from './models/nota.model'
 
 createConnection({
     type: 'mysql',
@@ -12,7 +13,7 @@ createConnection({
     username: 'root',
     password: '1234',
     database: 'nodeProject',
-    entities: [Estudiante, Curso],
+    entities: [Estudiante, Curso, Nota],
     synchronize: true
 }).then(async (connection) => {
     await connection.synchronize()

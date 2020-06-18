@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, OneToMany } from "typeorm";
 import { Curso } from "./curso.model";
+import { Nota } from "./nota.model";
 
 @Entity()
 export class Estudiante {
@@ -21,4 +22,7 @@ export class Estudiante {
     @ManyToMany(type => Curso, curso => curso.estudiantes)
     @JoinTable()
     cursos: Curso[]
+    
+    @OneToMany(type => Nota, nota => nota.estudiante)
+    notas: Nota[]
 }

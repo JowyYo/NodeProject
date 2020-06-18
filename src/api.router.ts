@@ -1,12 +1,14 @@
 import { Router } from 'express'
 import { CursoController } from './controllers/curso.controller'
 import { EstudianteController } from './controllers/estudiante.controller'
+import { NotaController } from './controllers/nota.controller'
 
 class ApiRouter {
 
     router: Router
     curso: CursoController
     estudiante: EstudianteController
+    nota: NotaController
 
     constructor() {
         this.init()
@@ -15,6 +17,7 @@ class ApiRouter {
     private init() {
         this.router = Router()
         const estudiantePath = '/estudiantes'
+        const notaPath = '/notas'
 
         this.curso = new CursoController()
         this.router.route('/cursos')
@@ -31,6 +34,12 @@ class ApiRouter {
             .delete(this.estudiante.eliminarCurso)
         this.router.route(estudiantePath + '/:estudianteId/cursos')
             .post(this.estudiante.añadirCursos)
+
+        this.nota = new NotaController()
+        this.router.route(notaPath + '/curso/:cursoId')
+            .get(this.nota.getAllByCurso)
+        this.router.route(notaPath + '/estudiante/:estudianteId')
+            .get(this.nota.getAllByEstudiante)
     }
 
     public getRouter(){

@@ -2,8 +2,6 @@ import * as express from 'express'
 import { EstudianteRepository } from '../repositories/estudiante.repository'
 
 export class EstudianteController {
-    public router = express.Router()
-    private path = '/estudiantes'
     private estudianteRepo: EstudianteRepository
 
     constructor() {
